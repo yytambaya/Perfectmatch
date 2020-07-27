@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <link rel="stylesheet" href="style.css"/>
+      <script type = "text/javascript">
+
+            function setColorBox(){
+              var colorpicker = document.getElementById('color-picker');
+              var colorsdiv = document.getElementById('colors-div');
+              var color = colorpicker.value;
+              var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+              //svg.innerHTML = "New Div";
+              svg.setAttribute("width", "150");
+              svg.setAttribute("height", "150");
+              svg.setAttribute("id", "canvas");
+              //svg.setAttribute("style", "background-color:white");
+              colorsdiv.appendChild(svg);
+              //var nsvg = document.getElementById("canvas");
+              var nsvg = document.getElementById("canvas");
+              var colorcircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+              //cx = nsvg.lastChild.innerHTML.getAttributeNode("cx").value + 25;
+                //ch = nsvg.lastChild.getAttribute("cx");
+                if(nsvg.children.length){
+
+                  l_cx = nsvg.lastChild.getAttribute("cx");
+                  l_cy = nsvg.lastChild.getAttribute("cy");
+                  cx = parseInt(l_cx) + 30;
+                  cy = parseInt(l_cy) + 0;
+                  //alert("Child name: cx: " + cx + " cy: " + cy);
+                  //console.log(xc);
+                  //console.log(cy);
+                }else{
+                  var cx = 25;
+                  var cy = 25;
+                  //alert("Child name: cx: " + cx + " cy: " +  cy);
+                }
+              colorcircle.setAttribute("cx", cx);
+              colorcircle.setAttribute("cy", cy);
+              colorcircle.setAttribute("r", "20");
+              colorcircle.setAttribute("fill", color);
+              colorcircle.setAttribute("stroke", "");
+              colorcircle.setAttribute("stroke-width", "2");
+              nsvg.appendChild(colorcircle);
+
+              //var newbox = "<svg width='150' height='150'><circle Cx='50' Cy='50' r='20' fill='color' stroke="" stroke-width='2'></svg>";
+              //var colorbox = document.createElement(newbox);
+              //document.divcolor.appendChild();
+            }
+            function getColors(){
+              var colors = [];
+              var svg = document.getElementById("canvas");
+              if(svg.hasChildNodes()){
+                for(i=0;i<svg.childNodes.length; i++){
+                  colors[i] = hexToHSL(svg.childNodes[i].getAttribute("fill"));
+                }
+                alert(colors);
+              }
+          }
+
+
+          function getMatch(){
+            var match = [];
+            var colors = getColors();
+            for(i=0; i<colors.length; i++){
+              color1 = hexToHSL(colors[i]);
+              alert(color1);
+              for(j=1;j<colors.length; j++){
+                color2 = hexToHSL(colors[j]);
+                alert(color2);
+                if(Math.abs(color1[0] - color2[0]) < 100){
+                  match.push(["color1", "color2"]);
+                }
+              }
+            }
+            alert(match);
+          }
+
+
+          function hexToHSL(H) {
+        // Convert hex to RGB first
+              let r = 0, g = 0, b = 0;
+              if (H.length == 4) {
+                r = "0x" + H[1] + H[1];
+                g = "0x" + H[2] + H[2];
+                b = "0x" + H[3] + H[3];
+              } else if (H.length == 7) {
+                r = "0x" + H[1] + H[2];
+                g = "0x" + H[3] + H[4];
+                b = "0x" + H[5] + H[6];
+              }
+              // Then to HSL
+              r /= 255;
+              g /= 255;
+              b /= 255;
+              let cmin = Math.min(r,g,b),
+                  cmax = Math.max(r,g,b),
+                  delta = cmax - cmin,
+                  h = 0,
+                  s = 0,
+                  l = 0;
+
+              if (delta == 0)
+                h = 0;
+              else if (cmax == r)
+                h = ((g - b) / delta) % 6;
+              else if (cmax == g)
+                h = (b - r) / delta + 2;
+              else
+                h = (r - g) / delta + 4;
+
+              h = Math.round(h * 60);
+
+              if (h < 0)
+                h += 360;
+
+              l = (cmax + cmin) / 2;
+              s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+              s = +(s * 100).toFixed(1);
+              l = +(l * 100).toFixed(1);
+
+              //return "hsl(" + h + "," + s + "%," + l + "%)";
+              return [h, s, l];
+        }
+
+
+            /*function generateColor(){
+              var match = new Array();
+              for(i=0; i<colors.length; i++){
+                var color1 = toHSL(colors[i]);
+                for(j=0; j<colors.length; j++){
+                  var color2 = toHSL(color[j]);
+                  if(abs(color1[1]-color[2]) < 25){
+                      match[i] = (i, 0);
+                  }
+                }
+              }
+            }*/
+            function nextColor(){
+              //color = generateColor();
+              //topcolor = color[1];
+              //bottomcolor = color[2];
+
+              topcolor = "blue";
+              bottomcolor = "yellow";
+              var object = document.getElementById("object");
+              var top = document.getElementById("top").setAttribute("fill", topcolor);
+              var tophand1 = document.getElementById("tophand1").setAttribute("stroke", topcolor);
+              var tophand2 = document.getElementById("tophand2").setAttribute("stroke", topcolor);
+              var bottom1 = document.getElementById("bottom1").setAttribute("stroke", bottomcolor);
+              var bottom2 = document.getElementById("bottom2").setAttribute("stroke", bottomcolor);
+            }
+
+            /*function toHSL(color){
+              var h = parseInt(color(0,2), 10);
+              var s = parseInt(color(), 10);
+              var l = parseInt(color, 10);
+              return new array(h, s, l);
+            }*/
+
+         //-->
+      </script>
+   </head>
+<body>
+  <header class="flex-container">
+    <h1 id="logo-text">Dude, Let's make your food</h1>
+    <div id="logo-design">
+      <svg width="300" height="300">
+        <circle  Cx="100" Cy="100" r="20" fill="orange" stroke="green" stroke-width="2"/>
+        <rect width="60" height="80" x="70" y="120" rx="20" ry="20" fill="orange" stroke="green" stroke-width="2" style/>
+        <line x1="125" x2="165" y1="125" y2="165" stroke="green" stroke-width="2"/>
+        <line x1="75" x2="40" y1="125" y2="175" stroke="green" stroke-width="2"/>
+        <line x1="80" x2="70" y1="195" y2="245" stroke="green" stroke-width="2"/>
+        <line x1="120" x2="130" y1="195" y2="245" stroke="green" stroke-width="2"/>
+      </svg>
+    </div>
+  </header>
+  <main>
+    <section class="settings-section">
+        <div class="settings-div">
+          <p id="preferences">Set options guy</p>
+            <div id="add-sub-div">
+              <form>
+                <Label>Pick color:</label><input type="color" id="color-picker" value="#ffffff" onchange="setColorBox()">
+              </form>
+              <div id="colors-div"></div>
+            </div>
+        </div>
+    </section>
+    <section class="foods-section">
+      <div class="food-div">
+        <div class="food-display">
+            <div><p id="food-name">Dress up</p></div>
+            <div>
+              <svg width="300" height="300" id="object">
+                <circle  Cx="100" Cy="100" r="20" fill="orange" stroke="green" stroke-width="2"/>
+                <rect id="top" width="60" height="80" x="70" y="120" rx="20" ry="20" fill="orange" stroke="green" stroke-width="2" style/>
+                <line id="tophand1" x1="125" x2="165" y1="125" y2="165" stroke="green" stroke-width="2"/>
+                <line id="tophand2" x1="75" x2="40" y1="125" y2="175" stroke="green" stroke-width="2"/>
+                <line id="bottom1" x1="80" x2="70" y1="195" y2="245" stroke="green" stroke-width="2"/>
+                <line id="bottom2" x1="120" x2="130" y1="195" y2="245" stroke="green" stroke-width="2"/>
+              </svg>
+              <div>
+            </div>
+              <button id="nextdress" onclick="nextColor(), getColors()">Next dress</button>
+            </div>
+        </div>
+      </div>
+    </section>
+    <section class="promotions-section">
+      <div class="promotion-div">
+        <p>Buy the food/how to cook for $1 later</p>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div id="logo-text-footer">
+      <h2>Let's make your food</h2>
+    </div>
+    <div >
+      <nav id="nav-footer"><a class="link" href="about.html">About</a><a class="link" href="privacy.html">Privacy Policy</a><a class="link" href="feedback.html">Feed back</a></nav>
+    </div>
+  </footer>
+</body>
+</html>
