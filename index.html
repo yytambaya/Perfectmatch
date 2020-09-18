@@ -1,92 +1,201 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
    <head>
-      <link rel="stylesheet" href="style.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+     <link rel="stylesheet" href="style.css"/>
       <script type = "text/javascript">
-
-            function setColorBox(){
-              var colorpicker = document.getElementById('color-picker');
+            var colors = [[]];
+            var allcolors = [];
+            let counttop=0;
+            let countdown=0;
+            let xtratop=0;
+            let xtradown=0;
+            let cxtop=0;
+            let cxdown=0;
+            let topcolors = [];
+            let downcolors = [];
+            let colorcounttop=0;
+            let colorcountdown=0;
+            let topcount=0;
+            let downcount=0;
+            //var match = [][];
+            var count=0;
+            var svg = null;
+            function setColorBox(position){
+              var colorpickertop = document.getElementById('color-picker-top');
+              var colorpickerdown = document.getElementById('color-picker-down');
               var colorsdiv = document.getElementById('colors-div');
-              var color = colorpicker.value;
-              var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-              //svg.innerHTML = "New Div";
-              svg.setAttribute("width", "150");
-              svg.setAttribute("height", "150");
-              svg.setAttribute("id", "canvas");
-              //svg.setAttribute("style", "background-color:white");
-              colorsdiv.appendChild(svg);
+              var colortop = colorpickertop.value;
+              var colordown = colorpickerdown.value;
+              if(svg == null){
+                //alert("year it's still null");
+                svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+                //svg.innerHTML = "New Div";
+                svg.setAttribute("width", "350");
+                svg.setAttribute("height", "250");
+                svg.setAttribute("id", "canvas");
+                //svg.setAttribute("style", "background-color:white");
+                colorsdiv.appendChild(svg);
+              }
               //var nsvg = document.getElementById("canvas");
               var nsvg = document.getElementById("canvas");
               var colorcircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+
               //cx = nsvg.lastChild.innerHTML.getAttributeNode("cx").value + 25;
                 //ch = nsvg.lastChild.getAttribute("cx");
-                if(nsvg.children.length){
+                //if(!(nsvg.children.length >= 20)){
+                    if(position=="top"){
+                      if(!(counttop >= 10)){
+                        if(counttop){
+                          l_cxtop = nsvg.lastChild.getAttribute("cx");
+                          l_cytop = nsvg.lastChild.getAttribute("cy");
+                          cxtop += 30;//parseInt(l_cxtop) + 30;
+                          //alert(cxtop);
+                          cytop = parseInt(l_cytop) + xtratop;
 
-                  l_cx = nsvg.lastChild.getAttribute("cx");
-                  l_cy = nsvg.lastChild.getAttribute("cy");
-                  cx = parseInt(l_cx) + 30;
-                  cy = parseInt(l_cy) + 0;
-                  //alert("Child name: cx: " + cx + " cy: " + cy);
-                  //console.log(xc);
-                  //console.log(cy);
-                }else{
-                  var cx = 25;
-                  var cy = 25;
-                  //alert("Child name: cx: " + cx + " cy: " +  cy);
-                }
-              colorcircle.setAttribute("cx", cx);
-              colorcircle.setAttribute("cy", cy);
-              colorcircle.setAttribute("r", "20");
-              colorcircle.setAttribute("fill", color);
-              colorcircle.setAttribute("stroke", "");
-              colorcircle.setAttribute("stroke-width", "2");
-              nsvg.appendChild(colorcircle);
 
+                          /*if(nsvg.children.length >= 10){
+                            //alert("It's more than ten");
+                            cx = 25;
+                            cy = 80;
+                            if(nsvg.children.length >= 11){
+                              cx = parseInt(l_cx) + 30;
+                              cy = parseInt(l_cy) + 0;
+                            }
+                            //cy = parseInt(l_cy) + 60;
+                          }*/
+                        }else{
+                           cxtop = 25;
+                          var cytop = 25;
+                        }
+                        colorcircle.setAttribute("cx", cxtop);
+                        colorcircle.setAttribute("cy", cytop);
+                        colorcircle.setAttribute("r", "20");
+                        colorcircle.setAttribute("fill", colortop);
+                        colorcircle.setAttribute("stroke", "");
+                        colorcircle.setAttribute("stroke-width", "2");
+                        nsvg.appendChild(colorcircle);
+                        counttop++;
+                        xtradown = 55;
+                        xtratop=0;
+                        topcolors.push(colortop);
+                        //alert(topcolors);
+                        //lastx= cxtop;
+                        //lastxtop = nsvg.lastChild.getAttribute("cx");
+
+                    }else{
+                      //alert("Space full");
+                      document.getElementById("limittop").style.visibility = "visible";
+                    }
+
+                    }else if(position=="down"){
+                      if(!(countdown >= 10)){
+                        if(countdown){
+                          l_cxdown = nsvg.lastChild.getAttribute("cx");
+                          l_cydown = nsvg.lastChild.getAttribute("cy");
+                          cxdown += 30;
+                          cydown = parseInt(l_cydown) + xtradown;
+
+
+                          /*if(nsvg.children.length >= 10){
+                            //alert("It's more than ten");
+                            cx = 25;
+                            cy = 80;
+                            if(nsvg.children.length >= 11){
+                              cx = parseInt(l_cx) + 30;
+                              cy = parseInt(l_cy) + 0;
+                            }
+                            //cy = parseInt(l_cy) + 60;
+                          }*/
+                        }else{
+                          cxdown = 25;
+                          var cydown = 80;
+                        }
+                        colorcircle.setAttribute("cx", cxdown);
+                        colorcircle.setAttribute("cy", cydown);
+                        colorcircle.setAttribute("r", "20");
+                        colorcircle.setAttribute("fill", colordown);
+                        colorcircle.setAttribute("stroke", "");
+                        colorcircle.setAttribute("stroke-width", "2");
+                        nsvg.appendChild(colorcircle);
+                        countdown++;
+                        xtratop = -55;
+                        xtradown=0;
+                        downcolors.push(colordown);
+                        //alert(downcolors);
+                    }else{
+                      //alert("Space full");
+                      document.getElementById("limitdown").style.visibility = "visible";
+                    }
+
+                  }else{
+                      //var cx = 25;
+                      //svar cy = 25;
+                      //alert("Child name: cx: " + cx + " cy: " +  cy);
+                    }
+                  /*colorcircle.setAttribute("cx", cx);
+                  colorcircle.setAttribute("cy", cy);
+                  colorcircle.setAttribute("r", "20");
+                  colorcircle.setAttribute("fill", colortop);
+                  colorcircle.setAttribute("stroke", "");
+                  colorcircle.setAttribute("stroke-width", "2");
+                  nsvg.appendChild(colorcircle);*/
+                //}else{
+                  //alert("You can only make 10 combination at a time");
+                //}
               //var newbox = "<svg width='150' height='150'><circle Cx='50' Cy='50' r='20' fill='color' stroke="" stroke-width='2'></svg>";
               //var colorbox = document.createElement(newbox);
               //document.divcolor.appendChild();
             }
-            function getColors(){
-              var colors = [];
+
+            /*function getColors(){
               var svg = document.getElementById("canvas");
               if(svg.hasChildNodes()){
                 for(i=0;i<svg.childNodes.length; i++){
                   colors[i] = hexToHSL(svg.childNodes[i].getAttribute("fill"));
+                  allcolors[i] = svg.childNodes[i].getAttribute("fill");
                 }
-                alert(colors);
+                //alert(colors);
               }
-          }
-
-
-          function getMatch(){
-            var match = [];
-            var colors = getColors();
-            for(i=0; i<colors.length; i++){
-              color1 = hexToHSL(colors[i]);
-              alert(color1);
-              for(j=1;j<colors.length; j++){
-                color2 = hexToHSL(colors[j]);
-                alert(color2);
-                if(Math.abs(color1[0] - color2[0]) < 100){
-                  match.push(["color1", "color2"]);
-                }
-              }
+          }*/
+          function getColors(){
+            for(i=0; i<topcolors.length; i++){
+                var topcolor = topcolors[i];
+                //alert(topcolors);
             }
-            alert(match);
+              for(j=0; j<downcolors.length; j++){
+                var downcolor = downcolors[j];
+                //alert(downcolors);
+              }
           }
 
 
-          function hexToHSL(H) {
+
+          function getMatch(topcolor, downcolor){
+            hsl_topcolor = hexToHSL(topcolor);
+            hsl_downcolor = hexToHSL(downcolor);
+            if(Math.abs(hsl_topcolor[0]- hsl_downcolor[0]) <= 90){
+              return 1;
+            }else{
+              return 0;
+            }
+            //alert(match);
+          }
+
+
+          function hexToHSL(color){
         // Convert hex to RGB first
               let r = 0, g = 0, b = 0;
-              if (H.length == 4) {
-                r = "0x" + H[1] + H[1];
-                g = "0x" + H[2] + H[2];
-                b = "0x" + H[3] + H[3];
-              } else if (H.length == 7) {
-                r = "0x" + H[1] + H[2];
-                g = "0x" + H[3] + H[4];
-                b = "0x" + H[5] + H[6];
+              if (color.length == 4) {
+                r = "0x" + color[1] + color[1];
+                g = "0x" + color[2] + color[2];
+                b = "0x" + color[3] + color[3];
+              } else if (color.length == 7) {
+                r = "0x" + color[1] + color[2];
+                g = "0x" + color[3] + color[4];
+                b = "0x" + color[5] + color[6];
               }
               // Then to HSL
               r /= 255;
@@ -123,6 +232,7 @@
         }
 
 
+
             /*function generateColor(){
               var match = new Array();
               for(i=0; i<colors.length; i++){
@@ -135,20 +245,50 @@
                 }
               }
             }*/
-            function nextColor(){
-              //color = generateColor();
-              //topcolor = color[1];
-              //bottomcolor = color[2];
 
-              topcolor = "blue";
-              bottomcolor = "yellow";
-              var object = document.getElementById("object");
-              var top = document.getElementById("top").setAttribute("fill", topcolor);
-              var tophand1 = document.getElementById("tophand1").setAttribute("stroke", topcolor);
-              var tophand2 = document.getElementById("tophand2").setAttribute("stroke", topcolor);
-              var bottom1 = document.getElementById("bottom1").setAttribute("stroke", bottomcolor);
-              var bottom2 = document.getElementById("bottom2").setAttribute("stroke", bottomcolor);
-            }
+            function nextColor(){
+
+              if(topcount != topcolors.length){
+                //alert('Top');
+                /*if((topcount+1) == topcolors.length){
+                  //alert('topcount is reset');
+                  //topcount += 1;
+                  topcount =1;
+                }else{
+                    //downcount += 1;
+                }*/
+                  //alert("Top");
+                  if(downcount != downcolors.length){
+                    //alert("down");
+                    topcolor = topcolors[topcount];
+                    bottomcolor = downcolors[downcount];
+                    //alert(topcolor + " and " + bottomcolor);
+                    result = getMatch(topcolor, bottomcolor);
+                    if(result == 1){
+                      document.getElementById("match_msg").style.visibility = "visible";
+                    }else if(result == 0){
+                      document.getElementById("match_msg").innerHTML = "Not matched";
+                      document.getElementById("match_msg").style.visibility = "visible";
+                    }
+                    var object = document.getElementById("object");
+                    var top = document.getElementById("top").setAttribute("fill", topcolor);
+                    var top = document.getElementById("head").setAttribute("stroke", topcolor);
+                    var top = document.getElementById("top").setAttribute("stroke", topcolor);
+                    var tophand1 = document.getElementById("tophand1").setAttribute("stroke", topcolor);
+                    var tophand2 = document.getElementById("tophand2").setAttribute("stroke", topcolor);
+                    var bottom1 = document.getElementById("bottom1").setAttribute("stroke", bottomcolor);
+                    var bottom2 = document.getElementById("bottom2").setAttribute("stroke", bottomcolor);
+
+                    if((downcount+1) == downcolors.length){
+                      topcount += 1;
+                      downcount =0;
+                    }else{
+                        downcount += 1;
+                    }
+                  }
+
+                }
+              }
 
             /*function toHSL(color){
               var h = parseInt(color(0,2), 10);
@@ -162,63 +302,54 @@
    </head>
 <body>
   <header class="flex-container">
-    <h1 id="logo-text">Dude, Let's make your food</h1>
-    <div id="logo-design">
+    <div class="logo-div"><h2 id="logo-text">PerfectMatch</h2></div>
       <svg width="300" height="300">
-        <circle  Cx="100" Cy="100" r="20" fill="orange" stroke="green" stroke-width="2"/>
-        <rect width="60" height="80" x="70" y="120" rx="20" ry="20" fill="orange" stroke="green" stroke-width="2" style/>
+        <circle  Cx="100" Cy="100" r="20" fill="white" stroke="green" stroke-width="2"/>
+        <rect width="60" height="80" x="70" y="120" rx="20" ry="20" fill="white" stroke="green" stroke-width="2" style/>
         <line x1="125" x2="165" y1="125" y2="165" stroke="green" stroke-width="2"/>
         <line x1="75" x2="40" y1="125" y2="175" stroke="green" stroke-width="2"/>
         <line x1="80" x2="70" y1="195" y2="245" stroke="green" stroke-width="2"/>
         <line x1="120" x2="130" y1="195" y2="245" stroke="green" stroke-width="2"/>
       </svg>
-    </div>
   </header>
   <main>
     <section class="settings-section">
-        <div class="settings-div">
-          <p id="preferences">Set options guy</p>
-            <div id="add-sub-div">
-              <form>
-                <Label>Pick color:</label><input type="color" id="color-picker" value="#ffffff" onchange="setColorBox()">
-              </form>
-              <div id="colors-div"></div>
+          <div class="preferences"><p>Pick color</p></div>
+            <div class="settings-div">
+                <form class="color-picker">
+                  <span><b>Top </b></span><input type="color" id="color-picker-top" value="#ffffff" onchange="setColorBox('top')">
+                  <span><b>Down </b></span><input type="color" id="color-picker-down" value="#ffffff" onchange="setColorBox('down')">
+                </form>
             </div>
-        </div>
-    </section>
-    <section class="foods-section">
-      <div class="food-div">
-        <div class="food-display">
-            <div><p id="food-name">Dress up</p></div>
+            <div id="colors-div" class="colors-div"></div>
             <div>
-              <svg width="300" height="300" id="object">
-                <circle  Cx="100" Cy="100" r="20" fill="orange" stroke="green" stroke-width="2"/>
-                <rect id="top" width="60" height="80" x="70" y="120" rx="20" ry="20" fill="orange" stroke="green" stroke-width="2" style/>
-                <line id="tophand1" x1="125" x2="165" y1="125" y2="165" stroke="green" stroke-width="2"/>
-                <line id="tophand2" x1="75" x2="40" y1="125" y2="175" stroke="green" stroke-width="2"/>
-                <line id="bottom1" x1="80" x2="70" y1="195" y2="245" stroke="green" stroke-width="2"/>
-                <line id="bottom2" x1="120" x2="130" y1="195" y2="245" stroke="green" stroke-width="2"/>
-              </svg>
-              <div>
+              <p id="limittop" style="color:orange; visibility:hidden;">Only 10 combinations is allowed for the top</p>
+              <p id="limitdown" style="color:orange; visibility:hidden;">Only 10 combinations is allowed for the down</p>
             </div>
-              <button id="nextdress" onclick="nextColor(), getColors()">Next dress</button>
-            </div>
-        </div>
-      </div>
     </section>
-    <section class="promotions-section">
-      <div class="promotion-div">
-        <p>Buy the food/how to cook for $1 later</p>
-      </div>
+    <section class="dress-section">
+      <div><p id="dress-name">Dress up</p></div>
+      <svg width="300" height="300" id="object">
+        <circle id="head"  Cx="100" Cy="100" r="20" fill="white" stroke="green" stroke-width="2"/>
+        <rect id="top" width="60" height="80" x="70" y="120" rx="20" ry="20" fill="white" stroke="green" stroke-width="2" style/>
+        <line id="tophand1" x1="125" x2="165" y1="125" y2="165" stroke="green" stroke-width="2"/>
+        <line id="tophand2" x1="75" x2="40" y1="125" y2="175" stroke="green" stroke-width="2"/>
+        <line id="bottom1" x1="80" x2="70" y1="195" y2="245" stroke="green" stroke-width="2"/>
+        <line id="bottom2" x1="120" x2="130" y1="195" y2="245" stroke="green" stroke-width="2"/>
+      </svg>
+      <span id="match_msg" style="background: green; color:white; visibility: hidden;">matched</span>
+      <div class="nextdress"><button id="nextdress" onclick="getColors(), nextColor()">Next dress</button></div>
     </section>
   </main>
   <footer>
     <div id="logo-text-footer">
-      <h2>Let's make your food</h2>
+      <h2>Let's match you up</h2>
     </div>
-    <div >
-      <nav id="nav-footer"><a class="link" href="about.html">About</a><a class="link" href="privacy.html">Privacy Policy</a><a class="link" href="feedback.html">Feed back</a></nav>
-    </div>
+      <nav class="nav-footer">
+        <a class="link" href="#">About</a>
+        <a class="link" href="#">Privacy Policy</a>
+        <a class="link" href="#">Contact</a>
+      </nav>
   </footer>
 </body>
 </html>
