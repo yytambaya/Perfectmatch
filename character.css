@@ -1,0 +1,40 @@
+.out-logo {
+    position:fixed;
+    right:10px;
+    top:10px;
+  }
+  
+  p.copy {
+    font-family:Helvetica, Arial, sans-serif;
+    font-size:12px;
+    text-align:center;
+    color:#ff9731;
+  }
+  
+  .container {
+    text-align:center;
+  }
+  
+  #tuku-vai {
+    position:relative;
+  }
+  
+  #tuku-vai .eye, #tuku-vai .eye {
+    /*fill:red;*/
+    animation: flick 2s 3s ease infinite;
+  }
+  
+  @keyframes flick {
+    0% {
+      transform: translateY(0px);
+    }
+    5% {
+      transform: translateY(6px);
+    }
+    10% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }

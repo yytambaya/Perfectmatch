@@ -1,0 +1,98 @@
+function setColorBox(position){
+    var colorpickertop = document.getElementById('color-picker-top');
+    var colorpickerdown = document.getElementById('color-picker-down');
+    var colorsdiv = document.getElementById('colors-div');
+    var colortop = colorpickertop.value;
+    var colordown = colorpickerdown.value;
+    if(svg == null){
+      //alert("year it's still null");
+      svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      //svg.innerHTML = "New Div";
+      svg.setAttribute("width", "350");
+      svg.setAttribute("height", "100");
+      svg.setAttribute("id", "canvas");
+      //svg.setAttribute("style", "background-color:white");
+      colorsdiv.appendChild(svg);
+    }
+    //var nsvg = document.getElementById("canvas");
+    var nsvg = document.getElementById("canvas");
+    var colorcircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+
+
+    //cx = nsvg.lastChild.innerHTML.getAttributeNode("cx").value + 25;
+      //ch = nsvg.lastChild.getAttribute("cx");
+      //if(!(nsvg.children.length >= 20)){
+          if(position=="top"){
+            if(!(counttop >= 10)){
+              if(counttop){
+                l_cxtop = nsvg.lastChild.getAttribute("cx");
+                l_cytop = nsvg.lastChild.getAttribute("cy");
+                cxtop += 30;//parseInt(l_cxtop) + 30;
+                //alert(cxtop);
+                cytop = parseInt(l_cytop) + xtratop;
+
+
+                /*if(nsvg.children.length >= 10){
+                  //alert("It's more than ten");
+                  cx = 25;
+                  cy = 80;
+                  if(nsvg.children.length >= 11){
+                    cx = parseInt(l_cx) + 30;
+                    cy = parseInt(l_cy) + 0;
+                  }
+                  //cy = parseInt(l_cy) + 60;
+                }*/
+              }else{
+                 cxtop = 25;
+                var cytop = 25;
+              }
+              colorcircle.setAttribute("cx", cxtop);
+              colorcircle.setAttribute("cy", cytop);
+              colorcircle.setAttribute("r", "20");
+              colorcircle.setAttribute("fill", colortop);
+              colorcircle.setAttribute("stroke", "");
+              colorcircle.setAttribute("stroke-width", "2");
+              nsvg.appendChild(colorcircle);
+              counttop++;
+              xtradown = 55;
+              xtratop=0;
+              topcolors.push(colortop);
+          }else{
+            document.getElementById("limittop").style.visibility = "visible";
+          }
+
+          }else if(position=="down"){
+            if(!(countdown >= 10)){
+              if(countdown){
+                l_cxdown = nsvg.lastChild.getAttribute("cx");
+                l_cydown = nsvg.lastChild.getAttribute("cy");
+                cxdown += 30;
+                cydown = parseInt(l_cydown) + xtradown;
+            
+              }else{
+                cxdown = 25;
+                var cydown = 80;
+              }
+              colorcircle.setAttribute("cx", cxdown);
+              colorcircle.setAttribute("cy", cydown);
+              colorcircle.setAttribute("r", "20");
+              colorcircle.setAttribute("fill", colordown);
+              colorcircle.setAttribute("stroke", "");
+              colorcircle.setAttribute("stroke-width", "2");
+              nsvg.appendChild(colorcircle);
+              countdown++;
+              xtratop = -55;
+              xtradown=0;
+              downcolors.push(colordown);
+              //alert(downcolors);
+          }else{
+            //alert("Space full");
+            document.getElementById("limitdown").style.visibility = "visible";
+          }
+
+        }else{
+            //var cx = 25;
+            //svar cy = 25;
+            //alert("Child name: cx: " + cx + " cy: " +  cy);
+          }
+  }

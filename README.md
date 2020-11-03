@@ -12,7 +12,7 @@ CSS <br/>
 How it works<br/>
 
 Bob chooses all his cloth colors from the preset section, click the match me button, see how he looks in that dress
-and the web app tell you weather it's perfect or not.
+and the web app tells you weather it's perfect or not.
 
 
 Principle used<br/>
